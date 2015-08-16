@@ -1,25 +1,103 @@
-# Instructions
+# Generic Text Parsing
 
-Exercises: 
+This repository should follow [Log File Parser](https://github.com/gSchool/js-node-log-file-parsing).
 
-  1. Spend some time getting familiar with the provided `mit_license.txt` file which contains a copy of the MIT License for the famous, ficticious software developer, _Copy McCattington_. Write a Node.js commandline script, name the file `mit.js`, that takes in an argument for the file's name (in this case `mit_license.txt`) and then `console.log`s an object with a word count for each word in the license. For the purpose of this word count `the`, `The`, `THE`, etc. are all the same word.
+Please read through this entire document first, then return to the beginning to complete the exercise.
+
+## Setting the stage (What and Why)
+
+Aside from 
+
+## Educational Objectives
+
+- Run a JavaScript file with `node`.
+- Use `fs` to parse files and understand more about file I/O.
+- Use the File System Module (`fs`) to interact with the filesystem.
+- Explain fundamental concepts behind how a computer language interpreter parses text using terms like token, delimiter, etc.
+
+### Key terms:
+
+- `fs`
+- parsing
+- tokenization
+- delimiter
+
+## Educational Activities
+
+The `fs` module was covered extensively in the [Log File Parser](https://github.com/gSchool/js-node-log-file-parsing). This lesson will dig deeper into the ideas behind text parsing.
+
+As previously stated, [computers are stupid](http://www.toothpastefordinner.com/081102/computers-are-stupid.gif). That is, when a file contains text, aside from the file extension, the machine has no idea of what that text means. Even given the file extension, the machine will still code need to _interpret_ the code.
+
+That is, there is some code that reads code files, and makes it _go_. Another way to think of this is that words on a page are meaningless until you have read and comprehended them; a computer program is no different.
+
+The _interpreter_ is baked into the runtime in the case of JavaScript and Node.js.
+
+But more generally, _how does an interpreter work_? This is a [deep topic](http://stackoverflow.com/questions/2377273/how-does-an-interpreter-compiler-work), so to simplify, assume a simple interpreter that can handle one type of statement; `print`. Statements in this language, `kewl.js`, look like this:
+
+  ```
+  // in [sample.kewl](sample.kewl)
+  print 'Good times'
+  print 'Programming is awesome!'
+  ```
+
+  and has corresponding usage and output:
+
+  ```
+  $:> node kewl.js sample.kewl
+  kewl: Good times
+  kewl: Programming is awesome!
+  ```
+
+Do not continue past this question until you have an answer you are convinced of; can this be achieved with Node.js?
+
+Good news, since `fs` can read files from the filesystem, Node.js can be used to create `kewl.js`!
+
+The business; first, the interpreter must begin by _parsing_ the file, that is, reading the file's contents in according to some rule. `kewl.js` is a simple language, so it can be read in as entire line to then be broken down further, each line is delimited by a newline character (`\n`), but the last line is not require to follow this convention.
+
+Next, each line must be [tokenized](https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization). That is, a string is being broken down into subcomponents. In `kewl.js` there are two types of tokens:
+
+  1. `print` 
+  1. A String representation of text surrounded by single quotes.
+
+The _delimiter_, when parsing a string into tokens, is the character that breaks the larger string into tokens (possibly to be broken down into subtokens via a secondary delimiter, etc).
+
+Here is one example of a [solution](kewl_solution.js) for creating `kewl.js`.
+
+The following is an exercise for the reader: re-write `kewl.js` to work so that `print` takes parenthesis and the string does not require the single quote. Usage would look like:
+
+  ```
+  // in sample.kewl
+  print(Good times)
+  print(Programming is awesome!)
+  ```
+
+If you are looking for a challenge, allow the original version of `kewl.js` to accept strings with escaped characters in them. [`hard_sample.kewl`](hard_sample.kewl) is provided for sample data.
+
+Finally, complete [text parsing for the marketing master](text_parsing_for_the_marketing_master.md). For each example:
   
-    For example, if you look at the `smaller_sample.txt` file included in this repository, the logged object would look like:
-  ```
-  { this: 3, counts: 3, a: 1, lot: 1 }
-  ```
+  * determine what the delimiters are (_note:_ some examples may only have one)
+  * what do the tokens look like?
 
-  1. Read a few random lines in the `dev_talk.txt` for a nice laugh. Write a Node.js command line script, name the file `talk.js`, that takes in an argument for the file's name (in this case `dev_talk.txt`) and then `console.log`s an object with the average number of non-newline (`\n`) characters in each line.
+## Reflect: Self-asses
 
-    For example, if you look at the `smaller_sample.txt` file included in this repository, the response would be:
-    ```
-    Average number of characters per line: 13
-    ```
+Go to the "Objectives" section of this README. Go through each one and ask yourself:
 
-  1. Review the `org_chart.txt` file included in this repository which contains the organization chart for a rather flat company. That is, there is only one level deep of management, every person is either a manager or the employee of the last listed manager. Managers have no indentation for their entry in the text file and employees have 2 spaces. Again you are writing a Node.js command line script, name the file `org.js`, and have it take a command line argument for the file's name (in this case `org_chart.txt`) and then `console.log` an object where each property is the name of a manager and each value is an array of their employee's names.
+- Have I completed this objective?
+- What concrete evidence do I have that I've completed the objective?
 
-    For example, if you look at the `mini_org_chart.txt` file included in this repository, the repsonse would be:
-    ```
-    { 'Boris Langworth': [ 'Daphney O\'Conner', 'Chad Breitenberg' ],
-      'Cody Schaden': [ 'Marcella Bashirian', 'Kenneth Romaguera', 'Lew Daugherty' ] }
-    ```
+Go to the "Key Terms" section of this README. For each word, ask yourself:
+
+- What is my explanation for this term?
+
+If you haven't completed an objective, or you can't define a term, take a few minutes to try to fill in any gaps.
+
+## Reflect: Ask new questions
+
+What new questions do you have now that you've gone through this exercise?
+
+List at least 4 here:
+
+1. 
+1. 
+1. 
+1. 
