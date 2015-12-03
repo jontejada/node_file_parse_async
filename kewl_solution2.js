@@ -17,7 +17,7 @@ fs.readFile(filename, 'utf-8', function(err, data) {
     for(var i = 0; i < line.length; i++) {
       //console.log(line.charAt(i));
       // first character or end character of string
-      if (line.charAt(i) == "'") {
+      if (line.charAt(i) == "(" || line.charAt(i) == ")") {
         // invert status of if in a word or not
         midString = !midString;
         //console.log(midString);
@@ -31,7 +31,7 @@ fs.readFile(filename, 'utf-8', function(err, data) {
       // otherwise content is part of an output string
       } else {
         output += line.charAt(i);
-        console.log(output);
+        //console.log(output);
       }
     }
 
